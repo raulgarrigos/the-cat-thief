@@ -16,14 +16,14 @@ class Game {
   // Aparición enemigos
   enemiesSpawn = () => {
     if (this.timer % 125 === 0) {
-      let randomPosition = Math.random() * 400;
+      let randomPosition = Math.random() * 200;
       let newEnemyNo = new Enemies("no", randomPosition);
       this.enemiesArr.push(newEnemyNo);
     }
 
     if (this.timer % 95 === 0) {
-      let randomPosition = Math.random() * 400;
-      let newEnemyEh = new Enemies("eh", randomPosition);
+      let randomPosition = Math.random() * 200;
+      let newEnemyEh = new Enemies("eh", randomPosition + 200);
       this.enemiesArr.push(newEnemyEh);
     }
   };
@@ -33,7 +33,6 @@ class Game {
     if (this.enemiesArr[0].y > 700) {
       this.enemiesArr[0].node.remove();
       this.enemiesArr.shift();
-      console.log(this.enemiesArr);
     }
   };
 
@@ -66,6 +65,7 @@ class Game {
     this.enemiesSpawn();
     this.collisionEnemiesPlayer();
     this.enemiesExit();
+
     // recursión
     this.timer++;
     if (this.isGameOn === true) {

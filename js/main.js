@@ -7,6 +7,9 @@ let gameOverScreenNode = document.querySelector("#gameover-screen");
 
 let isPlayerMovingRight = true;
 let isPlayerMovingTop = true;
+let gameBoxWidth = 500;
+let gameBoxHeight = 700;
+
 let gameObject;
 
 // Restart-btn
@@ -17,7 +20,6 @@ restartBtn.classList.add("restart-btn");
 let restartBtnNode = document.querySelector(".restart-btn");
 
 // Pause-btn
-
 let pauseBtn = document.createElement("button");
 pauseBtn.innerHTML = "Pause";
 gameScreenNode.append(pauseBtn);
@@ -30,11 +32,13 @@ const startGame = () => {
   gameScreenNode.style.display = "flex";
 
   gameObject = new Game();
-
   gameObject.gameLoop();
 };
 
 const restartGame = () => {
+  while (gameBoxNode.firstChild) {
+    gameBoxNode.removeChild(gameBoxNode.firstChild);
+  }
   gameOverScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -43,10 +47,12 @@ const restartGame = () => {
 };
 
 const pauseGame = () => {
-  gameObject.isGameOn = false;
+  if (gameObject.isGameOn === true) {
+    gameObject.isGameOn = false;
+  }
 };
 
-const unpauseGame = () => {
+const resumeGame = () => {
   if (gameObject.isGameOn === false) {
     gameObject.isGameOn = true;
   }
@@ -54,11 +60,15 @@ const unpauseGame = () => {
 
 // * EVENT LISTENERS
 startBtnNode.addEventListener("click", startGame);
-
 restartBtnNode.addEventListener("click", restartGame);
 
-pauseBtnNode.addEventListener("click", pauseGame);
-pauseBtnNode.addEventListener("click", unpauseGame);
+pauseBtnNode.addEventListener("click", () => {
+  if (gameObject.isGameOn === true) {
+    pauseGame();
+  } else {
+    resumeGame();
+  }
+});
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") {
@@ -75,21 +85,3 @@ document.addEventListener("keydown", (event) => {
     gameObject.player.movementVertical();
   }
 });
-
-// document.addEventListener("keydown", (event) => {
-//   if (event.code === "ArrowUp" && event.code === "ArrowRight") {
-//     isPlayerMovingRight = true;
-//     isPlayerMovingTop = true;
-//     console.log("CTRL Left and b Pressed");
-//     gameObject.player.movementDiagonal();
-//     // } else if (event.code === "ArrowRight" && event.code === "ArrowDown") {
-//     //   isPlayerMovingRight = true;
-//     //   isPlayerMovingTop = false;
-//     // } else if (event.code === "ArrowDown" && event.code === "ArrowLeft") {
-//     //   isPlayerMovingRight = false;
-//     //   isPlayerMovingTop = false;
-//     // } else if (event.code === "ArrowLeft" && event.code === "ArrowUp") {
-//     //   isPlayerMovingRight = false;
-//     //   isPlayerMovingTop = true;
-//   }
-// });

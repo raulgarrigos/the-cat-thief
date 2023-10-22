@@ -24,33 +24,22 @@ class Player {
     this.movementSpeed = 8;
   }
 
-  //Movimiento
-
+  // Movimiento
   movementHorizontal = () => {
-    if (isPlayerMovingRight === true) {
+    if (isPlayerMovingRight === true && this.x + this.w < gameBoxWidth) {
       this.x += this.movementSpeed;
-    } else if (isPlayerMovingRight === false) {
+    } else if (isPlayerMovingRight === false && this.x > 0) {
       this.x -= this.movementSpeed;
     }
     this.node.style.left = `${this.x}px`;
   };
 
   movementVertical = () => {
-    if (isPlayerMovingTop === false) {
+    if (isPlayerMovingTop === false && this.y + this.h < gameBoxHeight) {
       this.y += this.movementSpeed;
-    } else if (isPlayerMovingTop === true) {
+    } else if (isPlayerMovingTop === true && this.y > 0) {
       this.y -= this.movementSpeed;
     }
     this.node.style.top = `${this.y}px`;
   };
-
-  // movementDiagonal = () => {
-  //   if (isPlayerMovingRight === true && isPlayerMovingTop === true) {
-  //     this.x += this.movementSpeed;
-  //     this.y -= this.movementSpeed;
-  //   }
-
-  //   this.node.style.left = `${this.x}px`;
-  //   this.node.style.top = `${this.y}px`;
-  // };
 }
