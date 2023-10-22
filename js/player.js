@@ -6,8 +6,8 @@ class Player {
     gameBoxNode.append(this.node);
 
     // Dimensiones
-    this.w = 100;
-    this.h = 110;
+    this.w = 80;
+    this.h = 90;
 
     // Posición
     this.x = 190;
@@ -21,7 +21,7 @@ class Player {
     this.node.style.top = `${this.y}px`;
 
     // Velocidad
-    this.movementSpeed = 5;
+    this.movementSpeed = 8;
   }
 
   //Movimiento

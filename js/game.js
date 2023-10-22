@@ -15,18 +15,48 @@ class Game {
 
   // Aparición enemigos
   enemiesSpawn = () => {
-    if (this.timer % 350 === 0) {
+    if (this.timer % 125 === 0) {
       let randomPosition = Math.random() * 400;
-
       let newEnemyNo = new Enemies("no", randomPosition);
       this.enemiesArr.push(newEnemyNo);
     }
 
-    if (this.timer % 120 === 0) {
+    if (this.timer % 95 === 0) {
       let randomPosition = Math.random() * 400;
       let newEnemyEh = new Enemies("eh", randomPosition);
       this.enemiesArr.push(newEnemyEh);
     }
+  };
+
+  // Desaparición enemigos
+  enemiesExit = () => {
+    if (this.enemiesArr[0].y > 700) {
+      this.enemiesArr[0].node.remove();
+      this.enemiesArr.shift();
+      console.log(this.enemiesArr);
+    }
+  };
+
+  // Colisión enemigos con player
+
+  collisionEnemiesPlayer = () => {
+    this.enemiesArr.forEach((eachEnemy) => {
+      if (
+        eachEnemy.x < this.player.x + this.player.w &&
+        eachEnemy.x + eachEnemy.w > this.player.x &&
+        eachEnemy.y < this.player.y + this.player.h &&
+        eachEnemy.y + eachEnemy.h > this.player.y
+      ) {
+        // Collision detected!
+        this.gameOver();
+      }
+    });
+  };
+
+  gameOver = () => {
+    this.isGameOn = false;
+    gameScreenNode.style.display = "none";
+    gameOverScreenNode.style.display = "flex";
   };
 
   gameLoop = () => {
@@ -34,7 +64,8 @@ class Game {
       eachEnemy.automaticMovement();
     });
     this.enemiesSpawn();
-
+    this.collisionEnemiesPlayer();
+    this.enemiesExit();
     // recursión
     this.timer++;
     if (this.isGameOn === true) {

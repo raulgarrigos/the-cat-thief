@@ -1,5 +1,5 @@
 // * DOM ELEMENTS & GLOBAL VARIABLES
-let startBtnNODE = document.querySelector("#start-btn");
+let startBtnNode = document.querySelector("#start-btn");
 let splashScreenNode = document.querySelector("#splash-screen");
 let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
@@ -9,20 +9,56 @@ let isPlayerMovingRight = true;
 let isPlayerMovingTop = true;
 let gameObject;
 
+// Restart-btn
+let restartBtn = document.createElement("button");
+restartBtn.innerHTML = "Restart";
+gameOverScreenNode.append(restartBtn);
+restartBtn.classList.add("restart-btn");
+let restartBtnNode = document.querySelector(".restart-btn");
+
+// Pause-btn
+
+let pauseBtn = document.createElement("button");
+pauseBtn.innerHTML = "Pause";
+gameScreenNode.append(pauseBtn);
+pauseBtn.classList.add("pause-btn");
+let pauseBtnNode = document.querySelector(".pause-btn");
+
 // * STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
-  // iniciariamos el gameLoop
-  gameObject = new Game(); // Accedemos a la variable global
-  console.log(gameObject);
+  gameObject = new Game();
+
   gameObject.gameLoop();
-  // Creamos un objeto nuevo de clase Game e invocamos el Loop
+};
+
+const restartGame = () => {
+  gameOverScreenNode.style.display = "none";
+  gameScreenNode.style.display = "flex";
+
+  gameObject = new Game();
+  gameObject.gameLoop();
+};
+
+const pauseGame = () => {
+  gameObject.isGameOn = false;
+};
+
+const unpauseGame = () => {
+  if (gameObject.isGameOn === false) {
+    gameObject.isGameOn = true;
+  }
 };
 
 // * EVENT LISTENERS
-startBtnNODE.addEventListener("click", startGame);
+startBtnNode.addEventListener("click", startGame);
+
+restartBtnNode.addEventListener("click", restartGame);
+
+pauseBtnNode.addEventListener("click", pauseGame);
+pauseBtnNode.addEventListener("click", unpauseGame);
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") {

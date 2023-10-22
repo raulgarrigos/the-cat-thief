@@ -12,16 +12,16 @@ class Enemies {
     // Dimensiones
 
     if (type === "no") {
-      this.w = 100;
-      this.h = 60;
+      this.w = 50;
+      this.h = 30;
     } else {
-      this.w = 100;
-      this.h = 90;
+      this.w = 50;
+      this.h = 40;
     }
 
     // Posición
     this.x = xPosition;
-    this.y = 0;
+    this.y = -60;
 
     // Ajustar los valores en el DOM
     this.node.style.width = `${this.w}px`;
