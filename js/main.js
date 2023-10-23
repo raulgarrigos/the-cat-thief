@@ -9,10 +9,18 @@ let gameWinScreenNode = document.querySelector("#gamewin-screen");
 // Movement
 let isPlayerMovingRight = true;
 let isPlayerMovingTop = true;
+
 let gameBoxWidth = 500;
 let gameBoxHeight = 700;
 
 let gameObject;
+
+// Imagen Lady Momo
+let momoImage = document.createElement("img");
+momoImage.src = "/images/momo.png";
+gameScreenNode.append(momoImage);
+momoImage.classList.add("momo-image");
+let momoNode = document.querySelector(".momo-image");
 
 // BUTTONS
 
@@ -51,6 +59,13 @@ gameScreenNode.append(pointsCounter);
 pointsCounter.classList.add("points-counter");
 let pointsCounterNode = document.querySelector(".points-counter");
 
+// Level-counter
+let levelCounter = document.createElement("h1");
+levelCounter.innerHTML = "Level 1";
+gameScreenNode.append(levelCounter);
+levelCounter.classList.add("level-counter");
+let levelCounterNode = document.querySelector(".level-counter");
+
 // STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
   gameBoxNode.innerHTML = "";
@@ -86,7 +101,6 @@ newGameBtn.addEventListener("click", startGame);
 pauseBtnNode.addEventListener("click", pauseGame);
 resetBtnNode.addEventListener("click", () => {
   gameObject.isGameOn = false;
-  console.log("juego reseteando");
   restartGame();
 });
 

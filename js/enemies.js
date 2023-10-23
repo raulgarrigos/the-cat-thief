@@ -1,5 +1,5 @@
 class Enemies {
-  constructor(type, xPosition) {
+  constructor(type, xPosition, speed) {
     // Nodos
     this.node = document.createElement("img");
     if (type === "no") {
@@ -25,7 +25,7 @@ class Enemies {
     this.node.style.top = `${this.y}px`;
 
     // Velocidad
-    this.speed = 2;
+    this.speed = speed;
   }
 
   // Movimiento

@@ -23,13 +23,13 @@ class Game {
   enemiesSpawn = () => {
     if (this.timer % 190 === 0) {
       let randomPosition = Math.random() * 200;
-      let newEnemyNo = new Enemies("no", randomPosition);
+      let newEnemyNo = new Enemies("no", randomPosition, 1);
       this.enemiesArr.push(newEnemyNo);
     }
 
     if (this.timer % 225 === 0) {
       let randomPosition = Math.random() * 200;
-      let newEnemyEh = new Enemies("eh", randomPosition + 200);
+      let newEnemyEh = new Enemies("eh", randomPosition + 200, 1);
       this.enemiesArr.push(newEnemyEh);
     }
   };
@@ -102,8 +102,27 @@ class Game {
     pointsCounter.innerHTML = `Points: ${this.points}`;
   };
 
+  // Niveles de dificultad
+  increaseDifficulty = () => {
+    this.enemiesArr.forEach((eachPoint) => {
+      if (this.points >= 20 && this.points < 40) {
+        eachPoint.speed = 2;
+        levelCounter.innerHTML = `Level ${2}`;
+      } else if (this.points >= 40 && this.points < 60) {
+        eachPoint.speed = 3;
+        levelCounter.innerHTML = `Level ${3}`;
+      } else if (this.points >= 60 && this.points < 80) {
+        eachPoint.speed = 4;
+        levelCounter.innerHTML = `Level ${4}`;
+      } else if (this.points >= 80) {
+        levelCounter.innerHTML = `Level ${5}`;
+        eachPoint.speed = 5;
+      }
+    });
+  };
+
   gameWin = () => {
-    if (this.points >= 600) {
+    if (this.points >= 100) {
       this.isGameOn = false;
       gameScreenNode.style.display = "none";
       gameWinScreenNode.style.display = "flex";
@@ -129,6 +148,9 @@ class Game {
     this.gainingPoints();
     this.enemiesExit();
     this.gameWin();
+    this.increaseDifficulty();
+    // this.player.movementHorizontal();
+    // this.player.movementVertical();
 
     // recursión
     this.timer++;
