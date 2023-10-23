@@ -40,7 +40,7 @@ body {
   margin-right: 300px;
 }
 
-/* .reset-btn {
+.reset-btn {
   background-color: lightseagreen;
   color: white;
   padding: 20px;
@@ -48,7 +48,8 @@ body {
   margin-top: 10px;
   border-radius: 10px;
   margin-right: -300px;
-} */
+  margin-bottom: -77px;
+}
 
 .points-counter {
   background-color: lightsalmon;

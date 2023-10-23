@@ -103,7 +103,7 @@ class Game {
   };
 
   gameWin = () => {
-    if (this.points >= 10) {
+    if (this.points >= 600) {
       this.isGameOn = false;
       gameScreenNode.style.display = "none";
       gameWinScreenNode.style.display = "flex";

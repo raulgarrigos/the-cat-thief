@@ -1,10 +1,20 @@
-// * DOM ELEMENTS & GLOBAL VARIABLES
+// DOM ELEMENTS & GLOBAL VARIABLES
 let startBtnNode = document.querySelector("#start-btn");
 let splashScreenNode = document.querySelector("#splash-screen");
 let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#gameover-screen");
 let gameWinScreenNode = document.querySelector("#gamewin-screen");
+
+// Movement
+let isPlayerMovingRight = true;
+let isPlayerMovingTop = true;
+let gameBoxWidth = 500;
+let gameBoxHeight = 700;
+
+let gameObject;
+
+// BUTTONS
 
 // Restart-btn
 let restartBtn = document.createElement("button");
@@ -41,15 +51,7 @@ gameScreenNode.append(pointsCounter);
 pointsCounter.classList.add("points-counter");
 let pointsCounterNode = document.querySelector(".points-counter");
 
-// Movement
-let isPlayerMovingRight = true;
-let isPlayerMovingTop = true;
-let gameBoxWidth = 500;
-let gameBoxHeight = 700;
-
-let gameObject;
-
-// * STATE MANAGEMENT FUNCTIONS
+// STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
   gameBoxNode.innerHTML = "";
   splashScreenNode.style.display = "none";
@@ -81,13 +83,12 @@ const pauseGame = () => {
 startBtnNode.addEventListener("click", startGame);
 restartBtnNode.addEventListener("click", restartGame);
 newGameBtn.addEventListener("click", startGame);
+pauseBtnNode.addEventListener("click", pauseGame);
 resetBtnNode.addEventListener("click", () => {
   gameObject.isGameOn = false;
   console.log("juego reseteando");
   restartGame();
 });
-
-pauseBtnNode.addEventListener("click", pauseGame);
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") {
