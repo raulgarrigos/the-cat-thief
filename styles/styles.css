@@ -1,10 +1,10 @@
 body {
   margin: 0;
-  background-color: lightgray;
+  background-color: lightblue;
 }
 
 #start-btn {
-  background-color: green;
+  background-color: lightseagreen;
   color: white;
   padding: 20px;
   font-size: 20px;
@@ -13,7 +13,16 @@ body {
 }
 
 .restart-btn {
-  background-color: green;
+  background-color: lightseagreen;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.new-game-btn {
+  background-color: lightseagreen;
   color: white;
   padding: 20px;
   font-size: 20px;
@@ -22,13 +31,38 @@ body {
 }
 
 .pause-btn {
-  background-color: green;
+  background-color: lightcoral;
   color: white;
   padding: 20px;
   font-size: 20px;
   margin-top: 10px;
   border-radius: 10px;
   margin-right: 300px;
+}
+
+/* .reset-btn {
+  background-color: lightseagreen;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  margin-right: -300px;
+} */
+
+.points-counter {
+  background-color: lightsalmon;
+  border-color: black;
+  border-style: solid;
+  border-radius: 10px;
+
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+
+  margin-top: 10px;
+  margin-left: 650px;
+  margin-top: -750px;
 }
 
 .container {
@@ -43,17 +77,20 @@ body {
   background-color: darkgray;
   width: 500px;
   height: 700px;
+  border-color: black;
+  border-style: solid;
 
   overflow: hidden;
   position: relative;
   user-select: none;
 
-  background-image: url("");
+  background-image: url("/images/background_kitchen.jpg");
   background-position: center;
   background-size: cover;
 }
 
 #game-screen,
-#gameover-screen {
+#gameover-screen,
+#gamewin-screen {
   display: none;
 }

@@ -4,20 +4,28 @@ let splashScreenNode = document.querySelector("#splash-screen");
 let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let gameOverScreenNode = document.querySelector("#gameover-screen");
-
-let isPlayerMovingRight = true;
-let isPlayerMovingTop = true;
-let gameBoxWidth = 500;
-let gameBoxHeight = 700;
-
-let gameObject;
+let gameWinScreenNode = document.querySelector("#gamewin-screen");
 
 // Restart-btn
 let restartBtn = document.createElement("button");
-restartBtn.innerHTML = "Restart";
+restartBtn.innerHTML = "Try again?";
 gameOverScreenNode.append(restartBtn);
 restartBtn.classList.add("restart-btn");
 let restartBtnNode = document.querySelector(".restart-btn");
+
+//Reset-btn
+let resetBtn = document.createElement("button");
+resetBtn.innerHTML = "Reset";
+gameScreenNode.append(resetBtn);
+resetBtn.classList.add("reset-btn");
+let resetBtnNode = document.querySelector(".reset-btn");
+
+//New-Game-btn
+let newGameBtn = document.createElement("button");
+newGameBtn.innerHTML = "New Game";
+gameWinScreenNode.append(newGameBtn);
+newGameBtn.classList.add("new-game-btn");
+let newGameBtnNode = document.querySelector(".new-game-btn");
 
 // Pause-btn
 let pauseBtn = document.createElement("button");
@@ -26,8 +34,24 @@ gameScreenNode.append(pauseBtn);
 pauseBtn.classList.add("pause-btn");
 let pauseBtnNode = document.querySelector(".pause-btn");
 
+// Points-counter
+let pointsCounter = document.createElement("h1");
+pointsCounter.innerHTML = 0;
+gameScreenNode.append(pointsCounter);
+pointsCounter.classList.add("points-counter");
+let pointsCounterNode = document.querySelector(".points-counter");
+
+// Movement
+let isPlayerMovingRight = true;
+let isPlayerMovingTop = true;
+let gameBoxWidth = 500;
+let gameBoxHeight = 700;
+
+let gameObject;
+
 // * STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
+  gameBoxNode.innerHTML = "";
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -36,9 +60,7 @@ const startGame = () => {
 };
 
 const restartGame = () => {
-  while (gameBoxNode.firstChild) {
-    gameBoxNode.removeChild(gameBoxNode.firstChild);
-  }
+  gameBoxNode.innerHTML = "";
   gameOverScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -49,26 +71,23 @@ const restartGame = () => {
 const pauseGame = () => {
   if (gameObject.isGameOn === true) {
     gameObject.isGameOn = false;
-  }
-};
-
-const resumeGame = () => {
-  if (gameObject.isGameOn === false) {
+  } else {
     gameObject.isGameOn = true;
+    gameObject.gameLoop();
   }
 };
 
 // * EVENT LISTENERS
 startBtnNode.addEventListener("click", startGame);
 restartBtnNode.addEventListener("click", restartGame);
-
-pauseBtnNode.addEventListener("click", () => {
-  if (gameObject.isGameOn === true) {
-    pauseGame();
-  } else {
-    resumeGame();
-  }
+newGameBtn.addEventListener("click", startGame);
+resetBtnNode.addEventListener("click", () => {
+  gameObject.isGameOn = false;
+  console.log("juego reseteando");
+  restartGame();
 });
+
+pauseBtnNode.addEventListener("click", pauseGame);
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") {

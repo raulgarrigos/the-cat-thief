@@ -1,23 +1,33 @@
-class Enemies {
+class Points {
   constructor(type, xPosition) {
     // Nodos
     this.node = document.createElement("img");
-    if (type === "no") {
-      this.node.src = "./images/NO!.png";
-    } else {
-      this.node.src = "./images/EH!.png";
+    if (type === "pizza") {
+      this.node.src = "./images/pizza.png";
+    } else if (type === "fish") {
+      this.node.src = "./images/fish.png";
+    } else if (type === "chicken") {
+      this.node.src = "./images/chicken.png";
     }
     gameBoxNode.append(this.node);
 
+    // Tipo
+    this.type = type;
+
     // Dimensiones
-    this.w = 50;
-    this.h = 25;
+    if (type === "chicken") {
+      this.w = 40;
+      this.h = 40;
+    } else {
+      this.w = 50;
+      this.h = 50;
+    }
 
     // Posición
     this.x = xPosition;
     this.y = -60;
 
-    // Ajustar los valores en el DOM
+    // Ajustar valores en el DOM
     this.node.style.width = `${this.w}px`;
     this.node.style.height = `${this.h}px`;
     this.node.style.position = "absolute";
@@ -28,7 +38,7 @@ class Enemies {
     this.speed = 2;
   }
 
-  // Movimiento
+  //Movimiento
   automaticMovement = () => {
     this.y += this.speed;
     this.node.style.top = `${this.y}px`;
