@@ -52,7 +52,7 @@ body {
 
   position: relative;
   left: -200px;
-  top: 200px;
+  top: 530px;
 }
 
 .reset-btn {
@@ -67,7 +67,7 @@ body {
 
   position: relative;
   right: -200px;
-  top: 260px;
+  top: 590px;
 }
 
 .points-counter {
@@ -105,7 +105,7 @@ body {
   height: auto;
   position: relative;
   left: 350px;
-  top: 300px;
+  top: 150px;
 }
 
 .container {
@@ -158,5 +158,5 @@ body {
   width: 130px;
   height: 35px;
   position: relative;
-  top: 310px;
+  top: 640px;
 }

@@ -11,13 +11,13 @@ class Game {
 
   // Aparición enemigos
   enemiesSpawn = () => {
-    if (this.timer % 190 === 0) {
+    if (this.timer % 135 === 0) {
       let randomPosition = Math.random() * 200;
       let newEnemyNo = new Enemies("no", randomPosition, 1);
       this.enemiesArr.push(newEnemyNo);
     }
 
-    if (this.timer % 225 === 0) {
+    if (this.timer % 220 === 0) {
       let randomPosition = Math.random() * 200;
       let newEnemyEh = new Enemies("eh", randomPosition + 200, 1);
       this.enemiesArr.push(newEnemyEh);
@@ -44,7 +44,7 @@ class Game {
         eachEnemy.y + eachEnemy.h > this.player.y
       ) {
         this.player.life -= 1;
-        console.log(this.player.life);
+        collisionAudio.play();
         eachEnemy.node.remove();
         this.enemiesArr.splice(i, 1);
       }
@@ -107,7 +107,7 @@ class Game {
 
   // Aparición lifesaver
   lifesaverSpawn = () => {
-    if (this.timer % 300 === 0) {
+    if (this.timer % 1000 === 0) {
       let randomPosition = Math.random() * 400;
       let newLifesaver = new Lifesaver(randomPosition);
       this.lifesaverArr.push(newLifesaver);
@@ -127,7 +127,7 @@ class Game {
       ) {
         if (this.player.life < lifeLimit) {
           this.player.life += 1;
-          console.log(this.player.life);
+          lifesaverAudio.play();
           eachLife.node.remove();
           this.lifesaverArr.splice(i, 1);
         }
@@ -135,22 +135,64 @@ class Game {
     });
   };
 
+  // Desaparición lifesaver
+  lifesaverExit = () => {
+    if (this.lifesaverArr.length) {
+      if (this.lifesaverArr[0].y > 700) {
+        this.lifesaverArr[0].node.remove();
+        this.lifesaverArr.shift();
+      }
+    }
+  };
+
   // Niveles de dificultad
   increaseDifficulty = () => {
-    this.enemiesArr.forEach((eachPoint) => {
+    this.enemiesArr.forEach((eachEnemy) => {
       if (this.points >= 20 && this.points < 40) {
-        eachPoint.speed = 2;
         levelCounter.innerHTML = `Level ${2}`;
       } else if (this.points >= 40 && this.points < 60) {
-        eachPoint.speed = 3;
+        eachEnemy.timer % 60 === 0;
+        eachEnemy.speed = 3;
         levelCounter.innerHTML = `Level ${3}`;
       } else if (this.points >= 60 && this.points < 80) {
-        eachPoint.speed = 4;
+        eachEnemy.speed = 4;
         levelCounter.innerHTML = `Level ${4}`;
       } else if (this.points >= 80) {
+        eachEnemy.speed = 5;
         levelCounter.innerHTML = `Level ${5}`;
-        eachPoint.speed = 5;
       }
+
+      this.pointsArr.forEach((eachPoint) => {
+        if (this.points >= 20 && this.points < 40) {
+          eachPoint.speed = 2;
+          levelCounter.innerHTML = `Level ${2}`;
+        } else if (this.points >= 40 && this.points < 60) {
+          eachPoint.speed = 3;
+          levelCounter.innerHTML = `Level ${3}`;
+        } else if (this.points >= 60 && this.points < 80) {
+          eachPoint.speed = 4;
+          levelCounter.innerHTML = `Level ${4}`;
+        } else if (this.points >= 80) {
+          eachPoint.speed = 5;
+          levelCounter.innerHTML = `Level ${5}`;
+        }
+      });
+
+      this.lifesaverArr.forEach((eachLifesaver) => {
+        if (this.points >= 20 && this.points < 40) {
+          eachLifesaver.speed = 2;
+          levelCounter.innerHTML = `Level ${2}`;
+        } else if (this.points >= 40 && this.points < 60) {
+          eachLifesaver.speed = 3;
+          levelCounter.innerHTML = `Level ${3}`;
+        } else if (this.points >= 60 && this.points < 80) {
+          eachLifesaver.speed = 4;
+          levelCounter.innerHTML = `Level ${4}`;
+        } else if (this.points >= 80) {
+          eachLifesaver.speed = 5;
+          levelCounter.innerHTML = `Level ${5}`;
+        }
+      });
     });
   };
 
@@ -175,8 +217,12 @@ class Game {
 
   // Ganar partida
   gameWin = () => {
-    if (this.points >= 1) {
+    if (this.points >= 2) {
       this.isGameOn = false;
+
+      audioGameNode.pause();
+      audioWinNode.play();
+
       gameScreenNode.style.display = "none";
       gameWinScreenNode.style.display = "flex";
     }
@@ -185,6 +231,10 @@ class Game {
   // Perder partida
   gameOver = () => {
     this.isGameOn = false;
+
+    audioGameNode.pause();
+    audioGameOverNode.play();
+
     gameScreenNode.style.display = "none";
     gameOverScreenNode.style.display = "flex";
   };
@@ -220,6 +270,7 @@ class Game {
     // Objetos desapareciendo
     this.enemiesExit();
     this.pointsExit();
+    this.lifesaverExit();
 
     // recursión
     this.timer++;
