@@ -8,9 +8,9 @@ let gameWinScreenNode = document.querySelector("#gamewin-screen");
 
 // Movement
 let isPlayerMovingRight = true;
-let isPlayerMovingLeft = true;
+// let isPlayerMovingLeft = true;
 let isPlayerMovingTop = true;
-let isPlayerMovingBottom = true;
+// let isPlayerMovingBottom = true;
 
 let gameBoxWidth = 500;
 let gameBoxHeight = 700;
@@ -23,6 +23,25 @@ momoImage.src = "/images/momo.png";
 gameScreenNode.append(momoImage);
 momoImage.classList.add("momo-image");
 let momoNode = document.querySelector(".momo-image");
+
+// Vidas
+let threeHearts = document.createElement("img");
+threeHearts.src = "./images/3Hearts.png";
+gameScreenNode.append(threeHearts);
+threeHearts.classList.add("three-hearts");
+let threeHeartsNode = document.querySelector(".three-hearts");
+
+let twoHearts = document.createElement("img");
+twoHearts.src = "./images/2Hearts.png";
+gameScreenNode.append(twoHearts);
+twoHearts.classList.add("two-hearts");
+let twoHeartsNode = document.querySelector(".two-hearts");
+
+let oneHeart = document.createElement("img");
+oneHeart.src = "./images/1Heart.png";
+gameScreenNode.append(oneHeart);
+oneHeart.classList.add("one-heart");
+let oneHeartNode = document.querySelector(".one-heart");
 
 // BUTTONS
 
@@ -80,6 +99,14 @@ const startGame = () => {
 
 const restartGame = () => {
   gameBoxNode.innerHTML = "";
+  if (twoHeartsNode.style.display === "flex") {
+    twoHeartsNode.style.display = "none";
+  } else if (oneHeartNode.style.display === "flex") {
+    oneHeartNode.style.display = "none";
+  }
+
+  threeHeartsNode.style.display = "flex";
+
   gameOverScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -99,13 +126,13 @@ const pauseGame = () => {
 // * EVENT LISTENERS
 startBtnNode.addEventListener("click", startGame);
 restartBtnNode.addEventListener("click", restartGame);
-newGameBtn.addEventListener("click", () => {
-  gameWinScreenNode.style.display = "none";
+pauseBtnNode.addEventListener("click", pauseGame);
+resetBtnNode.addEventListener("click", () => {
   gameObject.isGameOn = false;
   restartGame();
 });
-pauseBtnNode.addEventListener("click", pauseGame);
-resetBtnNode.addEventListener("click", () => {
+newGameBtn.addEventListener("click", () => {
+  gameWinScreenNode.style.display = "none";
   gameObject.isGameOn = false;
   restartGame();
 });

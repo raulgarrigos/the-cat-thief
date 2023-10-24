@@ -21,7 +21,10 @@ class Player {
     this.node.style.top = `${this.y}px`;
 
     // Velocidad
-    this.movementSpeed = 8;
+    this.movementSpeed = 15;
+
+    // Vidas
+    this.life = 3;
   }
 
   // Movimiento

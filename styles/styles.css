@@ -43,32 +43,31 @@ body {
 .pause-btn {
   background-color: lightcoral;
   color: white;
-  border-color: black;
-  border-style: solid;
-  border-width: 3px;
-  padding: 20px;
-  font-size: 20px;
-  margin-top: 10px;
+  border: 3px solid black;
   border-radius: 10px;
-  margin-right: 300px;
+  padding: 10px 20px;
+  font-size: 20px;
   font-family: pacifico;
   text-shadow: 2px 2px black;
+
+  position: relative;
+  left: -200px;
+  top: 200px;
 }
 
 .reset-btn {
   background-color: lightseagreen;
   color: white;
-  border-color: black;
-  border-style: solid;
-  border-width: 3px;
-  padding: 20px;
-  font-size: 20px;
-  margin-top: 10px;
+  border: 3px solid black;
   border-radius: 10px;
-  margin-right: -300px;
-  margin-bottom: -90px;
+  padding: 10px 20px;
+  font-size: 20px;
   font-family: pacifico;
-  text-shadow: 2px 2px #000000;
+  text-shadow: 2px 2px black;
+
+  position: relative;
+  right: -200px;
+  top: 260px;
 }
 
 .points-counter {
@@ -78,14 +77,12 @@ body {
   border-radius: 10px;
   font-family: pacifico;
   text-shadow: 2px 2px white;
-
   color: black;
   padding: 20px;
   font-size: 20px;
-
-  margin-top: 10px;
-  margin-left: 650px;
-  margin-top: -750px;
+  position: relative;
+  right: -350px;
+  bottom: 500px;
 }
 
 .level-counter {
@@ -94,20 +91,21 @@ body {
   border-style: solid;
   border-radius: 10px;
   font-family: pacifico;
-
   color: black;
   padding: 20px;
   font-size: 20px;
 
-  margin-top: 10px;
-  margin-left: 650px;
+  position: relative;
+  right: -350px;
+  bottom: 500px;
 }
 
 .momo-image {
   width: 170px;
-  height: 300px;
-  margin-left: 750px;
-  margin-bottom: -300px;
+  height: auto;
+  position: relative;
+  left: 350px;
+  top: 300px;
 }
 
 .container {
@@ -132,6 +130,7 @@ body {
   height: 700px;
   border-color: black;
   border-style: solid;
+  margin-bottom: -600px;
 
   overflow: hidden;
   position: relative;
@@ -146,4 +145,18 @@ body {
 #gameover-screen,
 #gamewin-screen {
   display: none;
+}
+
+.two-hearts,
+.one-heart {
+  display: none;
+}
+
+.three-hearts,
+.two-hearts,
+.one-heart {
+  width: 130px;
+  height: 35px;
+  position: relative;
+  top: 310px;
 }
