@@ -102,6 +102,16 @@ class Game {
     pointsCounter.innerHTML = `Points: ${this.points}`;
   };
 
+  // Desaparición puntos
+  pointsExit = () => {
+    if (this.pointsArr.length) {
+      if (this.pointsArr[0].y > 700) {
+        this.pointsArr[0].node.remove();
+        this.pointsArr.shift();
+      }
+    }
+  };
+
   // Niveles de dificultad
   increaseDifficulty = () => {
     this.enemiesArr.forEach((eachPoint) => {
@@ -147,6 +157,7 @@ class Game {
     // this.collisionEnemiesPlayer();
     this.gainingPoints();
     this.enemiesExit();
+    this.pointsExit();
     this.gameWin();
     this.increaseDifficulty();
     // this.player.movementHorizontal();

@@ -8,7 +8,9 @@ let gameWinScreenNode = document.querySelector("#gamewin-screen");
 
 // Movement
 let isPlayerMovingRight = true;
+let isPlayerMovingLeft = true;
 let isPlayerMovingTop = true;
+let isPlayerMovingBottom = true;
 
 let gameBoxWidth = 500;
 let gameBoxHeight = 700;
@@ -97,7 +99,11 @@ const pauseGame = () => {
 // * EVENT LISTENERS
 startBtnNode.addEventListener("click", startGame);
 restartBtnNode.addEventListener("click", restartGame);
-newGameBtn.addEventListener("click", startGame);
+newGameBtn.addEventListener("click", () => {
+  gameWinScreenNode.style.display = "none";
+  gameObject.isGameOn = false;
+  restartGame();
+});
 pauseBtnNode.addEventListener("click", pauseGame);
 resetBtnNode.addEventListener("click", () => {
   gameObject.isGameOn = false;
