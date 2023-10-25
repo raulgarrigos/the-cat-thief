@@ -11,16 +11,22 @@ class Game {
 
   // Aparición enemigos
   enemiesSpawn = () => {
-    if (this.timer % 135 === 0) {
+    if (this.timer % 190 === 0) {
       let randomPosition = Math.random() * 200;
       let newEnemyNo = new Enemies("no", randomPosition, 1);
       this.enemiesArr.push(newEnemyNo);
     }
 
-    if (this.timer % 220 === 0) {
+    if (this.timer % 320 === 0) {
       let randomPosition = Math.random() * 200;
       let newEnemyEh = new Enemies("eh", randomPosition + 200, 1);
       this.enemiesArr.push(newEnemyEh);
+    }
+
+    if (this.timer % 450 === 0 && this.points >= 40) {
+      let randomPosition = Math.random() * 200;
+      let newEnemyLadron = new Enemies("ladron", randomPosition, 2);
+      this.enemiesArr.push(newEnemyLadron);
     }
   };
 
@@ -83,10 +89,13 @@ class Game {
       ) {
         if (eachPoint.type === "fish") {
           this.points++;
+          eatAudio.play();
         } else if (eachPoint.type === "chicken") {
           this.points += 3;
+          eatAudio.play();
         } else if (eachPoint.type === "pizza") {
           this.points += 5;
+          eatAudio.play();
         }
         eachPoint.node.remove();
         this.pointsArr.splice(i, 1);
@@ -149,16 +158,42 @@ class Game {
   increaseDifficulty = () => {
     this.enemiesArr.forEach((eachEnemy) => {
       if (this.points >= 20 && this.points < 40) {
+        eachEnemy.speed = 2;
+        if (eachEnemy.type === "no") {
+          eachEnemy.this.timer % 60 === 0;
+        } else if (eachEnemy.type === "eh") {
+          eachEnemy.this.timer % 115 === 0;
+        }
         levelCounter.innerHTML = `Level ${2}`;
       } else if (this.points >= 40 && this.points < 60) {
-        eachEnemy.timer % 60 === 0;
         eachEnemy.speed = 3;
+        if (eachEnemy.type === "no") {
+          eachEnemy.this.timer % 50 === 0;
+        } else if (eachEnemy.type === "eh") {
+          eachEnemy.this.timer % 105 === 0;
+        } else if (eachEnemy.type === "ladron") {
+          eachEnemy.this.timer % 300 === 0;
+        }
         levelCounter.innerHTML = `Level ${3}`;
       } else if (this.points >= 60 && this.points < 80) {
         eachEnemy.speed = 4;
+        if (eachEnemy.type === "no") {
+          eachEnemy.this.timer % 40 === 0;
+        } else if (eachEnemy.type === "eh") {
+          eachEnemy.this.timer % 90 === 0;
+        } else if (eachEnemy.type === "ladron") {
+          eachEnemy.this.timer % 200 === 0;
+        }
         levelCounter.innerHTML = `Level ${4}`;
       } else if (this.points >= 80) {
         eachEnemy.speed = 5;
+        if (eachEnemy.type === "no") {
+          this.timer % 10 === 0;
+        } else if (eachEnemy.type === "eh") {
+          this.timer % 10 === 0;
+        } else if (eachEnemy.type === "ladron") {
+          this.timer % 10 === 0;
+        }
         levelCounter.innerHTML = `Level ${5}`;
       }
 
@@ -217,7 +252,7 @@ class Game {
 
   // Ganar partida
   gameWin = () => {
-    if (this.points >= 2) {
+    if (this.points >= 100) {
       this.isGameOn = false;
 
       audioGameNode.pause();
@@ -260,7 +295,7 @@ class Game {
     this.lifesaverSpawn();
 
     // Colisiones y sus condiciones
-    this.collisionEnemiesPlayer();
+    // this.collisionEnemiesPlayer();
     this.loseLife();
     this.gainingPoints();
     this.gameWin();

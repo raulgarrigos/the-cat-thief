@@ -32,6 +32,13 @@ collisionAudio.classList.add("audio-collision");
 let collisionAudioNode = document.querySelector(".audio-collision");
 collisionAudio.volume = 0.1;
 
+// Audio comer
+let eatAudio = document.createElement("audio");
+eatAudio.src = "./audio/eat.wav";
+eatAudio.classList.add("audio-eat");
+let eatAudioNode = document.querySelector(".audio-eat");
+eatAudio.volume = 0.1;
+
 // Audio lifesaver
 let lifesaverAudio = document.createElement("audio");
 lifesaverAudio.src = "./audio/lifesaver.ogg";

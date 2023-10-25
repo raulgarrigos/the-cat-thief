@@ -3,15 +3,22 @@ class Enemies {
     // Nodos
     this.node = document.createElement("img");
     if (type === "no") {
-      this.node.src = "./images/NO!.png";
+      this.node.src = "./images/no.png";
+    } else if (type === "eh") {
+      this.node.src = "./images/eh.png";
     } else {
-      this.node.src = "./images/EH!.png";
+      this.node.src = "./images/ladron.png";
     }
     gameBoxNode.append(this.node);
 
     // Dimensiones
-    this.w = 50;
-    this.h = 25;
+    this.w = 65;
+    this.h = 40;
+
+    if (type === "ladron") {
+      this.w = 160;
+      this.h = 50;
+    }
 
     // Posición
     this.x = xPosition;
