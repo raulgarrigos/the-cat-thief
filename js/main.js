@@ -124,10 +124,10 @@ let levelCounterNode = document.querySelector(".level-counter");
 // Global Variables
 
 // Movement
-let isPlayerMovingRight = true;
-// let isPlayerMovingLeft = true;
-let isPlayerMovingTop = true;
-// let isPlayerMovingBottom = true;
+let isPlayerMovingRight = false;
+let isPlayerMovingLeft = false;
+let isPlayerMovingTop = false;
+let isPlayerMovingBottom = false;
 
 let gameBoxWidth = 500;
 let gameBoxHeight = 700;
@@ -207,15 +207,29 @@ newGameBtn.addEventListener("click", () => {
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") {
     isPlayerMovingRight = true;
-    gameObject.player.movementHorizontal();
   } else if (event.code === "ArrowLeft") {
-    isPlayerMovingRight = false;
-    gameObject.player.movementHorizontal();
+    isPlayerMovingLeft = true;
   } else if (event.code === "ArrowUp") {
     isPlayerMovingTop = true;
-    gameObject.player.movementVertical();
   } else if (event.code === "ArrowDown") {
+    isPlayerMovingBottom = true;
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.code === "ArrowRight") {
+    isPlayerMovingRight = false;
+  } else if (event.code === "ArrowLeft") {
+    isPlayerMovingLeft = false;
+  } else if (event.code === "ArrowUp") {
     isPlayerMovingTop = false;
-    gameObject.player.movementVertical();
+  } else if (event.code === "ArrowDown") {
+    isPlayerMovingBottom = false;
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    gameObject.shoot();
   }
 });

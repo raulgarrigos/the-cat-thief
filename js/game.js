@@ -7,11 +7,12 @@ class Game {
     this.timer = 1;
     this.points = 0;
     this.isGameOn = true;
+    this.shootArr = [];
   }
 
   // Aparición enemigos
   enemiesSpawn = () => {
-    if (this.timer % 190 === 0) {
+    if (this.timer % 170 === 0) {
       let randomPosition = Math.random() * 200;
       let newEnemyNo = new Enemies("no", randomPosition, 1);
       this.enemiesArr.push(newEnemyNo);
@@ -274,6 +275,33 @@ class Game {
     gameOverScreenNode.style.display = "flex";
   };
 
+  // Disparo
+  shoot = () => {
+    let newShoot = new Shoot(this.player.x, this.player.y);
+    this.shootArr.push(newShoot);
+  };
+
+  // Colisión disparo + Destruir objetos
+  // destroyEnemies = () => {
+
+  //   this.shootArr.forEach((eachLife, i) => {
+  //     if (
+  //       eachLife.x < this.player.x + this.player.w &&
+  //       eachLife.x + eachLife.w > this.player.x &&
+  //       eachLife.y < this.player.y + this.player.h &&
+  //       eachLife.y + eachLife.h > this.player.y
+  //     ) {
+  //       if (this.player.life < lifeLimit) {
+  //         this.player.life += 1;
+  //         lifesaverAudio.play();
+  //         eachLife.node.remove();
+  //         this.lifesaverArr.splice(i, 1);
+  //       }
+  //     }
+  //   });
+
+  // }
+
   gameLoop = () => {
     // Movimientos objetos
     this.enemiesArr.forEach((eachEnemy) => {
@@ -286,8 +314,12 @@ class Game {
       eachLifesaver.automaticMovement();
     });
 
-    // this.player.movementHorizontal();
-    // this.player.movementVertical();
+    this.shootArr.forEach((eachShoot) => {
+      eachShoot.automaticMovement();
+    });
+
+    this.player.movementHorizontal();
+    this.player.movementVertical();
 
     // Objetos apareciendo
     this.enemiesSpawn();
@@ -295,7 +327,7 @@ class Game {
     this.lifesaverSpawn();
 
     // Colisiones y sus condiciones
-    // this.collisionEnemiesPlayer();
+    this.collisionEnemiesPlayer();
     this.loseLife();
     this.gainingPoints();
     this.gameWin();

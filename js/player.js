@@ -21,7 +21,7 @@ class Player {
     this.node.style.top = `${this.y}px`;
 
     // Velocidad
-    this.movementSpeed = 15;
+    this.movementSpeed = 2;
 
     // Vidas
     this.life = 3;
@@ -31,14 +31,14 @@ class Player {
   movementHorizontal = () => {
     if (isPlayerMovingRight === true && this.x + this.w < gameBoxWidth) {
       this.x += this.movementSpeed;
-    } else if (isPlayerMovingRight === false && this.x > 0) {
+    } else if (isPlayerMovingLeft === true && this.x > 0) {
       this.x -= this.movementSpeed;
     }
     this.node.style.left = `${this.x}px`;
   };
 
   movementVertical = () => {
-    if (isPlayerMovingTop === false && this.y + this.h < gameBoxHeight) {
+    if (isPlayerMovingBottom === true && this.y + this.h < gameBoxHeight) {
       this.y += this.movementSpeed;
     } else if (isPlayerMovingTop === true && this.y > 0) {
       this.y -= this.movementSpeed;
