@@ -43,7 +43,29 @@ eatAudio.volume = 0.1;
 let lifesaverAudio = document.createElement("audio");
 lifesaverAudio.src = "./audio/lifesaver.ogg";
 lifesaverAudio.classList.add("audio-lifesaver");
-let lifesaverAudioNode = document.querySelector("audio-lifesaver");
+let lifesaverAudioNode = document.querySelector(".audio-lifesaver");
+lifesaverAudio.volume = 0.1;
+
+// Audio disparo
+let shootAudio = document.createElement("audio");
+shootAudio.src = "./audio/shoot.ogg";
+shootAudio.classList.add("audio-shoot");
+let shootAudioNode = document.querySelector(".audio-shoot");
+shootAudio.volume = 0.1;
+
+// Audio explosión
+let explosionAudio = document.createElement("audio");
+explosionAudio.src = "./audio/explosion.wav";
+explosionAudio.classList.add("audio-explosion");
+let explosionAudioNode = document.querySelector(".audio-explosion");
+explosionAudio.volume = 0.1;
+
+// Audio Mochi Navaja
+let wilhelmAudio = document.createElement("audio");
+wilhelmAudio.src = "./audio/wilhelm.wav";
+wilhelmAudio.classList.add("audio-wilhelm");
+let wilhelmAudioNode = document.querySelector(".audio-wilhelm");
+wilhelmAudio.volume = 0.5;
 
 // DOM Elements - Life
 
@@ -230,6 +252,7 @@ document.addEventListener("keyup", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
+    shootAudio.play();
     gameObject.shoot();
   }
 });

@@ -8,6 +8,8 @@ class Points {
       this.node.src = "./images/fish.png";
     } else if (type === "chicken") {
       this.node.src = "./images/chicken.png";
+    } else if (type === "mochinavaja") {
+      this.node.src = "./images/mochinavaja.png";
     }
     gameBoxNode.append(this.node);
 

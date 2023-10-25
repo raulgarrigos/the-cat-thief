@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.player = new Player();
+    this.player = new Player("mochi");
     this.enemiesArr = [];
     this.pointsArr = [];
     this.lifesaverArr = [];
@@ -9,6 +9,13 @@ class Game {
     this.isGameOn = true;
     this.shootArr = [];
   }
+
+  // Change player
+  changePlayer = () => {
+    if (this.points >= 60) {
+      this.player.node.src = "./images/momo_player.png";
+    }
+  };
 
   // Aparición enemigos
   enemiesSpawn = () => {
@@ -43,7 +50,7 @@ class Game {
 
   // Colisión enemigos + Perder vida
   collisionEnemiesPlayer = () => {
-    this.enemiesArr.forEach((eachEnemy, i) => {
+    this.enemiesArr.forEach((eachEnemy, enemyIndex) => {
       if (
         eachEnemy.x < this.player.x + this.player.w &&
         eachEnemy.x + eachEnemy.w > this.player.x &&
@@ -53,7 +60,7 @@ class Game {
         this.player.life -= 1;
         collisionAudio.play();
         eachEnemy.node.remove();
-        this.enemiesArr.splice(i, 1);
+        this.enemiesArr.splice(enemyIndex, 1);
       }
     });
   };
@@ -65,7 +72,6 @@ class Game {
       let newFish = new Points("fish", randomPosition);
       this.pointsArr.push(newFish);
     }
-
     if (this.timer % 605 === 0) {
       let randomPosition = Math.random() * 400;
       let newPizza = new Points("pizza", randomPosition);
@@ -77,11 +83,17 @@ class Game {
       let newChicken = new Points("chicken", randomPosition);
       this.pointsArr.push(newChicken);
     }
+
+    if (this.timer % 600 === 0 && this.points >= 60) {
+      let randomPosition = Math.random() * 400;
+      let newMochiNavaja = new Points("mochinavaja", randomPosition);
+      this.pointsArr.push(newMochiNavaja);
+    }
   };
 
   // Colisión puntos + Ganar puntos
   gainingPoints = () => {
-    this.pointsArr.forEach((eachPoint, i) => {
+    this.pointsArr.forEach((eachPoint, pointIndex) => {
       if (
         eachPoint.x < this.player.x + this.player.w &&
         eachPoint.x + eachPoint.w > this.player.x &&
@@ -97,9 +109,12 @@ class Game {
         } else if (eachPoint.type === "pizza") {
           this.points += 5;
           eatAudio.play();
+        } else if (eachPoint.type === "mochinavaja") {
+          this.points += 10;
+          wilhelmAudio.play();
         }
         eachPoint.node.remove();
-        this.pointsArr.splice(i, 1);
+        this.pointsArr.splice(pointIndex, 1);
       }
     });
     pointsCounter.innerHTML = `Points: ${this.points}`;
@@ -128,7 +143,7 @@ class Game {
   restoreLife = () => {
     let lifeLimit = 3;
 
-    this.lifesaverArr.forEach((eachLife, i) => {
+    this.lifesaverArr.forEach((eachLife, lifeIndex) => {
       if (
         eachLife.x < this.player.x + this.player.w &&
         eachLife.x + eachLife.w > this.player.x &&
@@ -139,7 +154,7 @@ class Game {
           this.player.life += 1;
           lifesaverAudio.play();
           eachLife.node.remove();
-          this.lifesaverArr.splice(i, 1);
+          this.lifesaverArr.splice(lifeIndex, 1);
         }
       }
     });
@@ -157,78 +172,60 @@ class Game {
 
   // Niveles de dificultad
   increaseDifficulty = () => {
+    if (this.points >= 20 && this.points < 40) {
+      levelCounter.innerHTML = `Level 2`;
+    } else if (this.points >= 40 && this.points < 60) {
+      levelCounter.innerHTML = `Level 3`;
+    } else if (this.points >= 60 && this.points < 80) {
+      levelCounter.innerHTML = `Level 4`;
+    } else if (this.points >= 80) {
+      levelCounter.innerHTML = `Level 5`;
+    }
+
+    if (this.points >= 20 && this.points < 40) {
+      this.player.speed = 6;
+    } else if (this.points >= 40 && this.points < 60) {
+      this.player.speed = 7;
+    } else if (this.points >= 60 && this.points < 80) {
+      this.player.speed = 8;
+    } else if (this.points >= 80) {
+      this.player.speed = 10;
+    }
+
     this.enemiesArr.forEach((eachEnemy) => {
       if (this.points >= 20 && this.points < 40) {
         eachEnemy.speed = 2;
-        if (eachEnemy.type === "no") {
-          eachEnemy.this.timer % 60 === 0;
-        } else if (eachEnemy.type === "eh") {
-          eachEnemy.this.timer % 115 === 0;
-        }
-        levelCounter.innerHTML = `Level ${2}`;
       } else if (this.points >= 40 && this.points < 60) {
-        eachEnemy.speed = 3;
-        if (eachEnemy.type === "no") {
-          eachEnemy.this.timer % 50 === 0;
-        } else if (eachEnemy.type === "eh") {
-          eachEnemy.this.timer % 105 === 0;
-        } else if (eachEnemy.type === "ladron") {
-          eachEnemy.this.timer % 300 === 0;
-        }
-        levelCounter.innerHTML = `Level ${3}`;
-      } else if (this.points >= 60 && this.points < 80) {
         eachEnemy.speed = 4;
-        if (eachEnemy.type === "no") {
-          eachEnemy.this.timer % 40 === 0;
-        } else if (eachEnemy.type === "eh") {
-          eachEnemy.this.timer % 90 === 0;
-        } else if (eachEnemy.type === "ladron") {
-          eachEnemy.this.timer % 200 === 0;
-        }
-        levelCounter.innerHTML = `Level ${4}`;
+      } else if (this.points >= 60 && this.points < 80) {
+        eachEnemy.speed = 6;
       } else if (this.points >= 80) {
-        eachEnemy.speed = 5;
-        if (eachEnemy.type === "no") {
-          this.timer % 10 === 0;
-        } else if (eachEnemy.type === "eh") {
-          this.timer % 10 === 0;
-        } else if (eachEnemy.type === "ladron") {
-          this.timer % 10 === 0;
-        }
-        levelCounter.innerHTML = `Level ${5}`;
+        eachEnemy.speed = 8;
       }
+    });
 
-      this.pointsArr.forEach((eachPoint) => {
-        if (this.points >= 20 && this.points < 40) {
-          eachPoint.speed = 2;
-          levelCounter.innerHTML = `Level ${2}`;
-        } else if (this.points >= 40 && this.points < 60) {
-          eachPoint.speed = 3;
-          levelCounter.innerHTML = `Level ${3}`;
-        } else if (this.points >= 60 && this.points < 80) {
-          eachPoint.speed = 4;
-          levelCounter.innerHTML = `Level ${4}`;
-        } else if (this.points >= 80) {
-          eachPoint.speed = 5;
-          levelCounter.innerHTML = `Level ${5}`;
-        }
-      });
+    this.pointsArr.forEach((eachPoint) => {
+      if (this.points >= 20 && this.points < 40) {
+        eachPoint.speed = 2;
+      } else if (this.points >= 40 && this.points < 60) {
+        eachPoint.speed = 4;
+      } else if (this.points >= 60 && this.points < 80) {
+        eachPoint.speed = 6;
+      } else if (this.points >= 80) {
+        eachPoint.speed = 8;
+      }
+    });
 
-      this.lifesaverArr.forEach((eachLifesaver) => {
-        if (this.points >= 20 && this.points < 40) {
-          eachLifesaver.speed = 2;
-          levelCounter.innerHTML = `Level ${2}`;
-        } else if (this.points >= 40 && this.points < 60) {
-          eachLifesaver.speed = 3;
-          levelCounter.innerHTML = `Level ${3}`;
-        } else if (this.points >= 60 && this.points < 80) {
-          eachLifesaver.speed = 4;
-          levelCounter.innerHTML = `Level ${4}`;
-        } else if (this.points >= 80) {
-          eachLifesaver.speed = 5;
-          levelCounter.innerHTML = `Level ${5}`;
-        }
-      });
+    this.lifesaverArr.forEach((eachLifesaver) => {
+      if (this.points >= 20 && this.points < 40) {
+        eachLifesaver.speed = 2;
+      } else if (this.points >= 40 && this.points < 60) {
+        eachLifesaver.speed = 4;
+      } else if (this.points >= 60 && this.points < 80) {
+        eachLifesaver.speed = 6;
+      } else if (this.points >= 80) {
+        eachLifesaver.speed = 8;
+      }
     });
   };
 
@@ -282,27 +279,58 @@ class Game {
   };
 
   // Colisión disparo + Destruir objetos
-  // destroyEnemies = () => {
+  destroyEnemies = () => {
+    this.shootArr.forEach((eachShoot, shootIndex) => {
+      this.enemiesArr.forEach((eachEnemy, enemyIndex) => {
+        if (
+          eachShoot.x < eachEnemy.x + eachEnemy.w &&
+          eachShoot.x + eachShoot.w > eachEnemy.x &&
+          eachShoot.y < eachEnemy.y + eachEnemy.h &&
+          eachShoot.y + eachShoot.h > eachEnemy.y
+        ) {
+          explosionAudio.play();
+          eachShoot.node.remove();
+          eachEnemy.node.remove();
+          this.shootArr.splice(shootIndex, 1);
+          this.enemiesArr.splice(enemyIndex, 1);
+        }
+      });
+    });
 
-  //   this.shootArr.forEach((eachLife, i) => {
-  //     if (
-  //       eachLife.x < this.player.x + this.player.w &&
-  //       eachLife.x + eachLife.w > this.player.x &&
-  //       eachLife.y < this.player.y + this.player.h &&
-  //       eachLife.y + eachLife.h > this.player.y
-  //     ) {
-  //       if (this.player.life < lifeLimit) {
-  //         this.player.life += 1;
-  //         lifesaverAudio.play();
-  //         eachLife.node.remove();
-  //         this.lifesaverArr.splice(i, 1);
-  //       }
-  //     }
-  //   });
+    if (this.points >= 40) {
+      this.shootArr.forEach((eachShoot, shootIndex) => {
+        this.pointsArr.forEach((eachPoint, pointIndex) => {
+          if (
+            eachShoot.x < eachPoint.x + eachPoint.w &&
+            eachShoot.x + eachShoot.w > eachPoint.x &&
+            eachShoot.y < eachPoint.y + eachPoint.h &&
+            eachShoot.y + eachShoot.h > eachPoint.y
+          ) {
+            explosionAudio.play();
+            eachShoot.node.remove();
+            eachPoint.node.remove();
+            this.shootArr.splice(shootIndex, 1);
+            this.pointsArr.splice(pointIndex, 1);
+          }
+        });
+      });
+    }
+  };
 
-  // }
+  // Desaparición disparos
+  shootExit = () => {
+    if (this.shootArr.length) {
+      if (this.shootArr[0].y < 0) {
+        this.shootArr[0].node.remove();
+        this.shootArr.shift();
+      }
+    }
+  };
 
   gameLoop = () => {
+    // Cambio
+    this.changePlayer();
+
     // Movimientos objetos
     this.enemiesArr.forEach((eachEnemy) => {
       eachEnemy.automaticMovement();
@@ -317,7 +345,6 @@ class Game {
     this.shootArr.forEach((eachShoot) => {
       eachShoot.automaticMovement();
     });
-
     this.player.movementHorizontal();
     this.player.movementVertical();
 
@@ -333,11 +360,13 @@ class Game {
     this.gameWin();
     this.increaseDifficulty();
     this.restoreLife();
+    this.destroyEnemies();
 
     // Objetos desapareciendo
     this.enemiesExit();
     this.pointsExit();
     this.lifesaverExit();
+    this.shootExit();
 
     // recursión
     this.timer++;
