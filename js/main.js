@@ -20,21 +20,21 @@ audioWinNode.volume = 0.1;
 
 // Audio botón
 let clickAudio = document.createElement("audio");
-clickAudio.src = "/audio/click.ogg";
+clickAudio.src = "./audio/click.ogg";
 clickAudio.classList.add("audio-button");
 let clickAudioNode = document.querySelector(".audio-button");
 clickAudio.volume = 0.5;
 
 // Audio enemigo
 let collisionAudio = document.createElement("audio");
-collisionAudio.src = "/audio/collision.ogg";
+collisionAudio.src = "./audio/collision.ogg";
 collisionAudio.classList.add("audio-collision");
 let collisionAudioNode = document.querySelector(".audio-collision");
 collisionAudio.volume = 0.1;
 
 // Audio lifesaver
 let lifesaverAudio = document.createElement("audio");
-lifesaverAudio.src = "/audio/lifesaver.ogg";
+lifesaverAudio.src = "./audio/lifesaver.ogg";
 lifesaverAudio.classList.add("audio-lifesaver");
 let lifesaverAudioNode = document.querySelector("audio-lifesaver");
 
@@ -95,7 +95,7 @@ let pauseBtnNode = document.querySelector(".pause-btn");
 
 // Imagen Lady Momo
 let momoImage = document.createElement("img");
-momoImage.src = "/images/momo.png";
+momoImage.src = "./images/momo.png";
 gameScreenNode.append(momoImage);
 momoImage.classList.add("momo-image");
 let momoNode = document.querySelector(".momo-image");

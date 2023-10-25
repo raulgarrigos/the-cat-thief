@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url("/images/background.png");
+  background-image: url("../images/background.png");
   background-position: center;
 }
 
@@ -136,7 +136,7 @@ body {
   position: relative;
   user-select: none;
 
-  background-image: url("/images/background_kitchen.jpg");
+  background-image: url("../images/background_kitchen.jpg");
   background-position: center;
   background-size: cover;
 }
