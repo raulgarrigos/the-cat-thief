@@ -1,8 +1,13 @@
 class Shoot {
-  constructor(x, y) {
+  constructor(x, y, type) {
     // Nodos
     this.node = document.createElement("img");
-    this.node.src = "./images/shuriken.png";
+    if (type === "shuriken") {
+      this.node.src = "./images/shuriken.png";
+    } else if (type === "rose") {
+      this.node.src = "./images/rose.png";
+    }
+
     gameBoxNode.append(this.node);
 
     // Dimensiones
@@ -12,6 +17,9 @@ class Shoot {
     // Posición
     this.x = x + 28;
     this.y = y + 10;
+
+    // Tipo
+    this.type = type;
 
     // Ajustar los valores en el DOM
     this.node.style.width = `${this.w}px`;

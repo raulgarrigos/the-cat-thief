@@ -65,7 +65,7 @@ let wilhelmAudio = document.createElement("audio");
 wilhelmAudio.src = "./audio/wilhelm.wav";
 wilhelmAudio.classList.add("audio-wilhelm");
 let wilhelmAudioNode = document.querySelector(".audio-wilhelm");
-wilhelmAudio.volume = 0.5;
+wilhelmAudio.volume = 0.2;
 
 // DOM Elements - Life
 
@@ -189,6 +189,10 @@ const restartGame = () => {
 
   threeHeartsNode.style.display = "flex";
 
+  if (momoNode.style.visibility === "hidden") {
+    momoNode.style.visibility = "visible";
+  }
+
   gameOverScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -216,6 +220,7 @@ restartBtnNode.addEventListener("click", restartGame);
 pauseBtnNode.addEventListener("click", pauseGame);
 resetBtnNode.addEventListener("click", () => {
   clickAudio.play();
+  momoNode.style.visibility = "visible";
   gameObject.isGameOn = false;
   restartGame();
 });

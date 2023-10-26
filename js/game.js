@@ -10,28 +10,21 @@ class Game {
     this.shootArr = [];
   }
 
-  // Change player
-  changePlayer = () => {
-    if (this.points >= 60) {
-      this.player.node.src = "./images/momo_player.png";
-    }
-  };
-
   // Aparición enemigos
   enemiesSpawn = () => {
-    if (this.timer % 170 === 0) {
-      let randomPosition = Math.random() * 200;
+    if (this.timer % 75 === 0) {
+      let randomPosition = Math.random() * 400;
       let newEnemyNo = new Enemies("no", randomPosition, 1);
       this.enemiesArr.push(newEnemyNo);
     }
 
-    if (this.timer % 320 === 0) {
-      let randomPosition = Math.random() * 200;
-      let newEnemyEh = new Enemies("eh", randomPosition + 200, 1);
+    if (this.timer % 95 === 0) {
+      let randomPosition = Math.random() * 400;
+      let newEnemyEh = new Enemies("eh", randomPosition, 1);
       this.enemiesArr.push(newEnemyEh);
     }
 
-    if (this.timer % 450 === 0 && this.points >= 40) {
+    if (this.timer % 135 === 0 && this.points >= 40) {
       let randomPosition = Math.random() * 200;
       let newEnemyLadron = new Enemies("ladron", randomPosition, 2);
       this.enemiesArr.push(newEnemyLadron);
@@ -67,24 +60,24 @@ class Game {
 
   // Aparición puntos
   pointsSpawn = () => {
-    if (this.timer % 175 === 0) {
+    if (this.timer % 145 === 0) {
       let randomPosition = Math.random() * 400;
       let newFish = new Points("fish", randomPosition);
       this.pointsArr.push(newFish);
     }
-    if (this.timer % 605 === 0) {
+    if (this.timer % 210 === 0) {
       let randomPosition = Math.random() * 400;
       let newPizza = new Points("pizza", randomPosition);
       this.pointsArr.push(newPizza);
     }
 
-    if (this.timer % 350 === 0) {
+    if (this.timer % 175 === 0) {
       let randomPosition = Math.random() * 400;
       let newChicken = new Points("chicken", randomPosition);
       this.pointsArr.push(newChicken);
     }
 
-    if (this.timer % 600 === 0 && this.points >= 60) {
+    if (this.timer % 350 === 0 && this.points >= 60) {
       let randomPosition = Math.random() * 400;
       let newMochiNavaja = new Points("mochinavaja", randomPosition);
       this.pointsArr.push(newMochiNavaja);
@@ -250,7 +243,7 @@ class Game {
 
   // Ganar partida
   gameWin = () => {
-    if (this.points >= 100) {
+    if (this.points >= 3) {
       this.isGameOn = false;
 
       audioGameNode.pause();
@@ -274,7 +267,7 @@ class Game {
 
   // Disparo
   shoot = () => {
-    let newShoot = new Shoot(this.player.x, this.player.y);
+    let newShoot = new Shoot(this.player.x, this.player.y, "shuriken");
     this.shootArr.push(newShoot);
   };
 
@@ -324,6 +317,16 @@ class Game {
         this.shootArr[0].node.remove();
         this.shootArr.shift();
       }
+    }
+  };
+
+  // Change player
+  changePlayer = () => {
+    if (this.points >= 1) {
+      this.player.node.src = "./images/momo_player.png";
+      // let shootRose = new Shoot(this.player.x, this.player.y, "rose");
+      // this.shootArr.push(shootRose);
+      momoNode.style.visibility = "hidden";
     }
   };
 
