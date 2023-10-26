@@ -274,7 +274,7 @@ class Game {
 
   // Ganar partida
   gameWin = () => {
-    if (this.points >= 1) {
+    if (this.points >= 100) {
       this.isGameOn = false;
 
       audioGameNode.pause();
