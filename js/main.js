@@ -183,6 +183,8 @@ const startGame = () => {
 
   clickAudio.play();
 
+  audioGameNode.playbackRate = 1;
+
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -196,6 +198,8 @@ const restartGame = () => {
   audioGameOverNode.pause();
   audioWinNode.pause();
   audioGameNode.play();
+
+  audioGameNode.playbackRate = 1;
 
   if (twoHeartsNode.style.display === "flex") {
     twoHeartsNode.style.display = "none";
