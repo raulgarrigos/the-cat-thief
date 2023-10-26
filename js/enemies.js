@@ -16,7 +16,7 @@ class Enemies {
     this.h = 40;
 
     if (type === "ladron") {
-      this.w = 160;
+      this.w = 170;
       this.h = 50;
     }
 

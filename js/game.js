@@ -8,7 +8,6 @@ class Game {
     this.timer = 1;
     this.points = 0;
     this.shootType = "shuriken";
-    this.playerChanged = false;
     this.isGameOn = true;
   }
 
@@ -97,15 +96,19 @@ class Game {
       ) {
         if (eachPoint.type === "fish") {
           this.points++;
+          eatAudio.currentTime = 0;
           eatAudio.play();
         } else if (eachPoint.type === "chicken") {
           this.points += 3;
+          eatAudio.currentTime = 0;
           eatAudio.play();
         } else if (eachPoint.type === "pizza") {
           this.points += 5;
+          eatAudio.currentTime = 0;
           eatAudio.play();
         } else if (eachPoint.type === "mochinavaja") {
           this.points += 10;
+          eatAudio.currentTime = 0;
           wilhelmAudio.play();
         }
         eachPoint.node.remove();
@@ -167,6 +170,7 @@ class Game {
 
   // Niveles de dificultad
   increaseDifficulty = () => {
+    // Cambia el contador de nivel
     if (this.points >= 20 && this.points < 40) {
       levelCounter.innerHTML = `Level 2`;
     } else if (this.points >= 40 && this.points < 60) {
@@ -177,6 +181,7 @@ class Game {
       levelCounter.innerHTML = `Level 5`;
     }
 
+    // Incrementa velocidad jugador
     if (this.points >= 20 && this.points < 40) {
       this.player.speed = 6;
     } else if (this.points >= 40 && this.points < 60) {
@@ -187,18 +192,41 @@ class Game {
       this.player.speed = 10;
     }
 
+    // Incrementa velocidad música
+    if (this.points >= 10 && this.points < 20) {
+      audioGameNode.playbackRate = 1.2;
+    } else if (this.points >= 20 && this.points < 30) {
+      audioGameNode.playbackRate = 1.3;
+    } else if (this.points >= 30 && this.points < 40) {
+      audioGameNode.playbackRate = 1.4;
+    } else if (this.points >= 40 && this.points < 50) {
+      audioGameNode.playbackRate = 1.5;
+    } else if (this.points >= 50 && this.points < 60) {
+      audioGameNode.playbackRate = 1.6;
+    } else if (this.points >= 60 && this.points < 70) {
+      audioGameNode.playbackRate = 1.7;
+    } else if (this.points >= 70 && this.points < 80) {
+      audioGameNode.playbackRate = 1.8;
+    } else if (this.points >= 80 && this.points < 90) {
+      audioGameNode.playbackRate = 1.9;
+    } else if (this.points >= 90 && this.points < 100) {
+      audioGameNode.playbackRate = 2.0;
+    }
+
+    // Incrementa velocidad enemigos
     this.enemiesArr.forEach((eachEnemy) => {
       if (this.points >= 20 && this.points < 40) {
         eachEnemy.speed = 2;
       } else if (this.points >= 40 && this.points < 60) {
         eachEnemy.speed = 4;
       } else if (this.points >= 60 && this.points < 80) {
-        eachEnemy.speed = 6;
+        eachEnemy.speed = 8;
       } else if (this.points >= 80) {
-        eachEnemy.speed = 12;
+        eachEnemy.speed = 16;
       }
     });
 
+    // Incrementa velocidad puntos
     this.pointsArr.forEach((eachPoint) => {
       if (this.points >= 20 && this.points < 40) {
         eachPoint.speed = 2;
@@ -211,6 +239,7 @@ class Game {
       }
     });
 
+    // Incrementa velocidad salvavidas
     this.lifesaverArr.forEach((eachLifesaver) => {
       if (this.points >= 20 && this.points < 40) {
         eachLifesaver.speed = 2;
@@ -269,8 +298,10 @@ class Game {
 
   // Disparo
   shoot = () => {
-    let newShoot = new Shoot(this.player.x, this.player.y, this.shootType);
-    this.shootArr.push(newShoot);
+    if (gameObject.isGameOn) {
+      let newShoot = new Shoot(this.player.x, this.player.y, this.shootType);
+      this.shootArr.push(newShoot);
+    }
   };
 
   // Colisión disparo + Destruir objetos
@@ -328,7 +359,6 @@ class Game {
       this.player.node.src = "./images/momo_player.png";
       momoNode.style.visibility = "hidden";
       this.shootType = "rose";
-      this.playerChanged = true;
     }
   };
 

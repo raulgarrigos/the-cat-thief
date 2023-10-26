@@ -1,5 +1,4 @@
 // DOM Elements - Screens
-
 let splashScreenNode = document.querySelector("#splash-screen");
 let gameScreenNode = document.querySelector("#game-screen");
 let gameBoxNode = document.querySelector("#game-box");
@@ -68,7 +67,6 @@ let wilhelmAudioNode = document.querySelector(".audio-wilhelm");
 wilhelmAudio.volume = 0.2;
 
 // DOM Elements - Life
-
 let threeHearts = document.createElement("img");
 threeHearts.src = "./images/3Hearts.png";
 gameScreenNode.append(threeHearts);
@@ -120,7 +118,7 @@ gameScreenNode.append(pauseBtn);
 pauseBtn.classList.add("pause-btn");
 let pauseBtnNode = document.querySelector(".pause-btn");
 
-// DOM Elements - Others
+// DOM Elements - Images
 
 // Imagen Lady Momo
 let momoImage = document.createElement("img");
@@ -142,6 +140,8 @@ mugshotMochi.src = "./images/mugshot.jpg";
 gameOverScreenNode.append(mugshotMochi);
 mugshotMochi.classList.add("mugshot-mochi");
 let mugshotMochiNode = document.querySelector(".mugshot-mochi");
+
+// DOM Elements - Counters
 
 // Points-counter
 let pointsCounter = document.createElement("h1");
@@ -165,9 +165,11 @@ let isPlayerMovingLeft = false;
 let isPlayerMovingTop = false;
 let isPlayerMovingBottom = false;
 
+// Size
 let gameBoxWidth = 500;
 let gameBoxHeight = 700;
 
+// Game
 let gameObject;
 
 // State Management Functions
@@ -218,6 +220,7 @@ const pauseGame = () => {
   if (gameObject.isGameOn === true) {
     gameObject.isGameOn = false;
     audioGameNode.pause();
+    shootAudio.pause();
     clickAudio.play();
   } else {
     gameObject.isGameOn = true;
@@ -271,7 +274,10 @@ document.addEventListener("keyup", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
+    shootAudio.currentTime = 0;
     shootAudio.play();
     gameObject.shoot();
+  } else if (gameObject.isGameOn === false) {
+    shootAudio.pause();
   }
 });

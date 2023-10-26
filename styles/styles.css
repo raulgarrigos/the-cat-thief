@@ -23,8 +23,8 @@ body {
 }
 
 .restart-btn {
-  background-color: lightslategray;
-  color: white;
+  background-color: lightgreen;
+  color: black;
   padding: 20px;
   font-size: 20px;
   margin-top: 40px;
@@ -146,8 +146,8 @@ body {
 }
 
 .container p {
-  color: lightcoral;
-  text-shadow: 2px 2px white;
+  color: white;
+  text-shadow: 2px 2px black;
   font-family: pacifico;
   font-size: 30px;
   text-align: center;
