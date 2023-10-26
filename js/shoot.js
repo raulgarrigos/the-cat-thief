@@ -18,9 +18,6 @@ class Shoot {
     this.x = x + 28;
     this.y = y + 10;
 
-    // Tipo
-    this.type = type;
-
     // Ajustar los valores en el DOM
     this.node.style.width = `${this.w}px`;
     this.node.style.height = `${this.h}px`;
@@ -29,7 +26,7 @@ class Shoot {
     this.node.style.top = `${this.y}px`;
 
     // Velocidad
-    this.speed = 2;
+    this.speed = 5;
   }
 
   // Disparo

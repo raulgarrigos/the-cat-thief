@@ -4,10 +4,12 @@ class Game {
     this.enemiesArr = [];
     this.pointsArr = [];
     this.lifesaverArr = [];
+    this.shootArr = [];
     this.timer = 1;
     this.points = 0;
+    this.shootType = "shuriken";
+    this.playerChanged = false;
     this.isGameOn = true;
-    this.shootArr = [];
   }
 
   // Aparición enemigos
@@ -193,7 +195,7 @@ class Game {
       } else if (this.points >= 60 && this.points < 80) {
         eachEnemy.speed = 6;
       } else if (this.points >= 80) {
-        eachEnemy.speed = 8;
+        eachEnemy.speed = 12;
       }
     });
 
@@ -205,7 +207,7 @@ class Game {
       } else if (this.points >= 60 && this.points < 80) {
         eachPoint.speed = 6;
       } else if (this.points >= 80) {
-        eachPoint.speed = 8;
+        eachPoint.speed = 12;
       }
     });
 
@@ -217,7 +219,7 @@ class Game {
       } else if (this.points >= 60 && this.points < 80) {
         eachLifesaver.speed = 6;
       } else if (this.points >= 80) {
-        eachLifesaver.speed = 8;
+        eachLifesaver.speed = 12;
       }
     });
   };
@@ -243,7 +245,7 @@ class Game {
 
   // Ganar partida
   gameWin = () => {
-    if (this.points >= 3) {
+    if (this.points >= 100) {
       this.isGameOn = false;
 
       audioGameNode.pause();
@@ -267,7 +269,7 @@ class Game {
 
   // Disparo
   shoot = () => {
-    let newShoot = new Shoot(this.player.x, this.player.y, "shuriken");
+    let newShoot = new Shoot(this.player.x, this.player.y, this.shootType);
     this.shootArr.push(newShoot);
   };
 
@@ -322,11 +324,11 @@ class Game {
 
   // Change player
   changePlayer = () => {
-    if (this.points >= 1) {
+    if (this.points >= 60) {
       this.player.node.src = "./images/momo_player.png";
-      // let shootRose = new Shoot(this.player.x, this.player.y, "rose");
-      // this.shootArr.push(shootRose);
       momoNode.style.visibility = "hidden";
+      this.shootType = "rose";
+      this.playerChanged = true;
     }
   };
 

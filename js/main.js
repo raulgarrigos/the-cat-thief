@@ -129,6 +129,20 @@ gameScreenNode.append(momoImage);
 momoImage.classList.add("momo-image");
 let momoNode = document.querySelector(".momo-image");
 
+// Imagen Mochi Wanted
+let wantedMochi = document.createElement("img");
+wantedMochi.src = "./images/wanted.png";
+gameWinScreenNode.append(wantedMochi);
+wantedMochi.classList.add("wanted-mochi");
+let wantedMochiNode = document.querySelector(".wanted-mochi");
+
+// Imagen Mochi Mugshot
+let mugshotMochi = document.createElement("img");
+mugshotMochi.src = "./images/mugshot.jpg";
+gameOverScreenNode.append(mugshotMochi);
+mugshotMochi.classList.add("mugshot-mochi");
+let mugshotMochiNode = document.querySelector(".mugshot-mochi");
+
 // Points-counter
 let pointsCounter = document.createElement("h1");
 pointsCounter.innerHTML = 0;
@@ -189,9 +203,9 @@ const restartGame = () => {
 
   threeHeartsNode.style.display = "flex";
 
-  if (momoNode.style.visibility === "hidden") {
+  setTimeout(() => {
     momoNode.style.visibility = "visible";
-  }
+  }, 50);
 
   gameOverScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
