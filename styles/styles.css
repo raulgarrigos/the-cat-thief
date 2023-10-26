@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url("../images/background3.png");
+  background-image: url("../images/background.png");
   background-position: center;
   background-size: cover;
   background-color: lightblue;
@@ -146,8 +146,9 @@ body {
 }
 
 .container p {
-  color: white;
-  text-shadow: 2px 2px black;
+  color: rgb(247, 106, 211);
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+    2px 2px 0 white;
   font-family: pacifico;
   font-size: 30px;
   text-align: center;
